@@ -1,0 +1,236 @@
+.car-list-container {
+  padding: 20px;
+  position: relative;
+}
+
+.background-image {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70vh;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.background-video {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  min-width: 50%;
+  min-height: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: -1;
+}
+
+.car-images-top {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 25px 0 30px;
+  gap: 20px;
+}
+
+.car-top-image {
+  width: calc(33% - 20px);
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.car-top-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.car-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.car-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.car-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.car-header {
+  background-color: #007bff;
+  color: white;
+  padding: 15px;
+  border-radius: 10px 10px 0 0;
+}
+
+.car-header h2 {
+  margin: 0;
+}
+
+.car-details p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.car-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
+}
+
+.car-images {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 150px;
+  overflow: hidden;
+  margin: 0 auto;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.car-header {
+  background-color: #007bff;
+  color: white;
+  padding: 15px;
+  border-radius: 10px 10px 0 0;
+  text-align: left;
+  position: relative;
+}
+
+.car-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.car-header p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.car-price {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white; 
+}
+
+.edit-button,
+.delete-button {
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button {
+  background-color: #28a745;
+}
+
+.delete-button {
+  background-color: #dc3545;
+}
+
+.edit-button:hover {
+  background-color: #218838;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+.car-details p svg {
+  margin-right: 10px;
+  color: #007bff;
+}
+
+@media (max-width: 768px) {
+  .car-images-top {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .car-top-image {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+}
+
+.logo-slider .logo-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  margin: 0 5px;
+}
+
+.logo-slider .brand-logo {
+  max-width: 100%;
+  height: auto;
+  max-height: 80px;
+  object-fit: contain;
+}
+
+.slick-prev,
+.slick-next {
+  font-size: 30px;
+  color: #333;
+  z-index: 1;
+  padding: 10px;
+}
+
+.slick-prev {
+  left: -40px;
+}
+
+.slick-next {
+  right: -40px;
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  color: black;
+  opacity: 0.8;
+}
+
+.typing-animation {
+  width: 22ch;
+  animation: typing 10s steps(22, end) infinite, blink 0.5s step-end infinite;
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: monospace;
+  font-size: 2em;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}

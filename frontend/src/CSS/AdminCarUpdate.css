@@ -1,0 +1,61 @@
+/* Form container styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between input fields */
+    max-width: 400px;
+    margin: 0 auto; /* Center the form horizontally */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Label styling */
+label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Input and textarea fields */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Textarea specific styling */
+textarea {
+    resize: vertical;
+    height: 80px;
+}
+
+/* Submit button */
+button {
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Error and success message styling */
+p {
+    font-size: 14px;
+    margin-top: -5px;
+    margin-bottom: 10px;
+}

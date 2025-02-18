@@ -1,0 +1,28 @@
+.rental-status-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.rental-status-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.loading-message {
+    text-align: center;
+    font-size: 18px;
+    color: #28a745;
+}
+
+.error-message {
+    text-align: center;
+    font-size: 18px;
+    color: #dc3545;
+}

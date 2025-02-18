@@ -1,0 +1,28 @@
+.cancel-container {
+    text-align: center;
+    padding: 50px;
+    color: #f44336; /* Red color for cancellation */
+}
+
+.cancel-container h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.cancel-container p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.cancel-home-link {
+    font-size: 1.2em;
+    color: white;
+    background-color: #f44336;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.cancel-home-link:hover {
+    background-color: #d32f2f;
+}

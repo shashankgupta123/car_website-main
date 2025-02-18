@@ -1,0 +1,197 @@
+.car-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive columns */
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .car-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .car-header h2 {
+    margin-bottom: 10px;
+  }
+  
+  .car-images img {
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    margin-bottom: 10px;
+    object-fit: cover;
+  }
+  
+  .car-details p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  
+  .car-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .car-actions a,
+  .car-actions button {
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .car-actions button {
+    background-color: #dc3545;
+  }
+  
+  .car-actions a:hover,
+  .car-actions button:hover {
+    background-color: #0056b3;
+  }
+  
+  .add-new-car-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .add-new-car-btn:hover {
+    background-color: #218838;
+  }
+
+.car-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    gap: 20px;
+    padding: 20px;
+    opacity: 0;
+    animation: fadeIn 1s forwards; 
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .car-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideIn 0.5s ease-out forwards; 
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .car-header h2 {
+    margin-bottom: 10px;
+  }
+  
+  .car-images img {
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    margin-bottom: 10px;
+    object-fit: cover;
+  }
+  
+  .car-details p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  
+  .car-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .car-actions a,
+  .car-actions button {
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s; 
+  }
+  
+  .car-actions button {
+    background-color: #dc3545;
+  }
+  
+  .car-actions a:hover,
+  .car-actions button:hover {
+    background-color: #0056b3;
+    transform: scale(1.1); 
+  }
+  
+  .car-actions a:active,
+  .car-actions button:active {
+    transform: scale(0.95); 
+  }
+  
+  .car-card:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); 
+    transform: translateY(-5px); 
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out; 
+  }
+  
+  .car-grid .car-card {
+    transition: transform 0.3s ease-out;
+  }
+  
+  .add-new-car-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-new-car-btn:hover {
+    background-color: #218838;
+  }
+  
+  @media (max-width: 768px) {
+    .car-grid {
+      grid-template-columns: 1fr; 
+    }
+  }
+  
