@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
 import { Pie } from 'react-chartjs-2';
 import axios from 'axios';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
@@ -12,10 +12,12 @@ const PieChart = () => {
   const [error, setError] = useState(null);
   const [totalIncome, setTotalIncome] = useState(0);
 
-  const getRandomColor = () => {
-    const randomColor = () => Math.floor(Math.random() * 256);
-    return `rgb(${randomColor()}, ${randomColor()}, ${randomColor()})`;
-  };
+  // Define fixed pastel colors
+  const pastelColors = [
+    'rgba(173, 216, 230, 0.7)',  // Light Blue
+    'rgba(144, 238, 144, 0.7)',  // Light Green
+    'rgba(255, 255, 153, 0.7)',  // Light Yellow
+  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,11 +30,11 @@ const PieChart = () => {
         const colors = [];
         let total = 0;
 
-        data.forEach(item => {
+        data.forEach((item, index) => {
           labels.push(item._id.carName);
           const totalPrice = item.totalPurchases.reduce((sum, purchase) => sum + purchase.price, 0);
           values.push(totalPrice);
-          colors.push(getRandomColor());
+          colors.push(pastelColors[index % pastelColors.length]); // Cycle through light colors
           total += totalPrice;
         });
 

@@ -6,10 +6,13 @@ import "./RentalChart.css"; // Import scoped CSS
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const getRandomColor = () => {
-  const randomColor = () => Math.floor(Math.random() * 256);
-  return `rgba(${randomColor()}, ${randomColor()}, ${randomColor()}, 0.5)`;
-};
+// Fixed Lavender & Light Blue colors
+const fixedColors = [
+  "rgba(230, 230, 250, 0.8)", // Light Lavender
+  "rgba(173, 216, 230, 0.8)", // Light Blue
+  "rgba(221, 160, 221, 0.8)", // Plum
+  "rgba(135, 206, 235, 0.8)", // Sky Blue
+];
 
 const RentalChart = () => {
   const [chartData, setChartData] = useState(null);
@@ -25,14 +28,14 @@ const RentalChart = () => {
         const weeks = data.map(item => `Week ${item._id.week}`);
         const allCarNames = [...new Set(data.flatMap(item => item.cars.map(car => car.carName)))];
 
-        const datasets = allCarNames.map(carName => ({
+        const datasets = allCarNames.map((carName, index) => ({
           label: carName,
           data: data.map(item => {
             const car = item.cars.find(car => car.carName === carName);
             return car ? car.carCount : 0;
           }),
-          backgroundColor: getRandomColor(),
-          borderColor: getRandomColor(),
+          backgroundColor: fixedColors[index % fixedColors.length], // Assign fixed colors
+          borderColor: fixedColors[index % fixedColors.length],
           borderWidth: 1,
         }));
 
@@ -50,16 +53,14 @@ const RentalChart = () => {
 
   useEffect(() => {
     fetchData();
-    const intervalId = setInterval(fetchData, 5000);
-    return () => clearInterval(intervalId);
-  }, []);
+  }, []); // Fetch data only once on mount
 
   if (loading) return <div className="rental-chart-loading">Loading...</div>;
   if (error) return <div className="rental-chart-error">{error}</div>;
 
   return (
-<div className="rental-chart-container">
-    <h2 className="rental-chart-title">Car Rentals by Week</h2>
+    <div className="rental-chart-container">
+      <h2 className="rental-chart-title">Car Rentals by Week</h2>
       <div className="rental-chart">
         {chartData && (
           <Bar

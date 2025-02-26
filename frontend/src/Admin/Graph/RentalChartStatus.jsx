@@ -11,11 +11,6 @@ const RentalChartStatus = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const getRandomColor = () => {
-        const randomColor = () => Math.floor(Math.random() * 256);
-        return `rgb(${randomColor()}, ${randomColor()}, ${randomColor()})`;
-    };
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -55,15 +50,15 @@ const RentalChartStatus = () => {
             {
                 label: "Current Rentals",
                 data: currentRentals,
-                backgroundColor: getRandomColor(),
-                borderColor: getRandomColor(),
+                backgroundColor: "rgba(0, 100, 0, 0.8)", // Light Green
+                borderColor: "rgba(0, 50, 0, 1)", // Slightly Darker Green
                 borderWidth: 1
             },
             {
                 label: "Past Rentals",
                 data: pastRentals,
-                backgroundColor: getRandomColor(),
-                borderColor: getRandomColor(),
+                backgroundColor: "rgba(139, 0, 0, 0.8)", // Light Red (Pinkish)
+                borderColor: "rgba(100, 0, 0, 1)", // Slightly Darker Red
                 borderWidth: 1
             }
         ]

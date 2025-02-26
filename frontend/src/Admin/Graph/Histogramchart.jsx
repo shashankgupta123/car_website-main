@@ -6,12 +6,6 @@ import './HistogramChart.css'; // Import the CSS file
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-// Function to generate random color
-const getRandomColor = () => {
-  const randomColor = () => Math.floor(Math.random() * 256);
-  return `rgba(${randomColor()}, ${randomColor()}, ${randomColor()}, 0.6)`;
-};
-
 const HistogramChart = () => {
   const [chartData, setChartData] = useState(null); 
   const [isLoading, setIsLoading] = useState(true); 
@@ -41,14 +35,23 @@ const HistogramChart = () => {
           prices.push(totalPrice);
         });
 
+        const colors = [
+          'rgba(128, 128, 128, 0.6)',  // Gray
+          'rgba(169, 169, 169, 0.6)',  // Dark Gray
+          'rgba(192, 192, 192, 0.6)',  // Silver
+          'rgba(105, 105, 105, 0.6)',  // Dim Gray
+          'rgba(112, 128, 144, 0.6)',  // Slate Gray
+          'rgba(220, 220, 220, 0.6)',  // Light Gray
+        ];
+        
         setChartData({
           labels: weeks,
           datasets: [
             {
               label: 'Total Income',
               data: prices, 
-              backgroundColor: getRandomColor(), // Dynamic color for each bar
-              borderColor: getRandomColor(),
+              backgroundColor: colors, // Dynamic color for each bar
+              borderColor: colors.map(color => color.replace('0.6', '1')),
               borderWidth: 1,
             },
           ],
