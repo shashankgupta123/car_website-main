@@ -67,6 +67,9 @@ const VoiceAssistant = () => {
         window.open(data.url, "_blank");
       } else if (data.action === "navigate" && data.url) {
         navigate(data.url);
+      }else if (data.action === "searchCar") {
+        // Call a function from Header.jsx to trigger car search
+        window.dispatchEvent(new CustomEvent("searchCarEvent", {  detail: data.url.split("=")[1] }));
       }
 
       if (data.wikipedia) {

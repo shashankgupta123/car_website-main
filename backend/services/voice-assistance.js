@@ -39,31 +39,43 @@ export const processCommand = ({ command, username }) => {
     url = `https://en.wikipedia.org/wiki/${searchTerm}`;
     responseText = `This is what I found on Wikipedia regarding ${searchTerm}`;
     action = "open";
+  } else if (normalizedCommand.includes("search car")) {
+    const carName = command.replace("search car", "").trim();
+    console.log("Searching for car:", carName);
+
+    if (carName) {
+      action = "searchCar"; // Custom action for triggering search in Header.jsx
+      responseText = `Searching for car: ${carName}`;
+      url = `/cars?query=${encodeURIComponent(carName)}`;
+    } else {
+      responseText = "Please specify the car name to search.";
+    }
   } else if (normalizedCommand.includes("search")) {
-    const searchTerm = command.replace("search", "").trim(); 
-    console.log("Searching Wikipedia for:", searchTerm); // Log search term
+    const searchTerm = command.replace("search", "").trim();
+    console.log("Searching Wikipedia for:", searchTerm);
 
     if (searchTerm) {
-        return axios.get(`https://en.wikipedia.org/api/rest_v1/page/summary/${searchTerm}`)
-            .then((wikiResponse) => {
-                console.log("Wikipedia API Response:", wikiResponse.data); // Log API response
-                if (wikiResponse.data.extract) {
-                    wikipedia = wikiResponse.data.extract.split(". ").slice(0, 2).join(". ") + ".";
-                } else {
-                    wikipedia = "I found some information, but I suggest checking Wikipedia for details.";
-                }
-                return { responseText: wikipedia, action, url, wikipedia };
-            })
-            .catch((error) => {
-                console.error("Wikipedia API error:", error.message);
-                return {
-                    responseText: `I couldn't find information on Wikipedia for '${searchTerm}'. Try searching on Google instead.`,
-                    action: "open",
-                    url: `https://www.google.com/search?q=${searchTerm.replace(/ /g, "+")}`
-                };
-            });
+      return axios
+        .get(`https://en.wikipedia.org/api/rest_v1/page/summary/${searchTerm}`)
+        .then((wikiResponse) => {
+          console.log("Wikipedia API Response:", wikiResponse.data);
+          if (wikiResponse.data.extract) {
+            wikipedia = wikiResponse.data.extract.split(". ").slice(0, 2).join(". ") + ".";
+          } else {
+            wikipedia = "I found some information, but I suggest checking Wikipedia for details.";
+          }
+          return { responseText: wikipedia, action, url, wikipedia };
+        })
+        .catch((error) => {
+          console.error("Wikipedia API error:", error.message);
+          return {
+            responseText: `I couldn't find information on Wikipedia for '${searchTerm}'. Try searching on Google instead.`,
+            action: "open",
+            url: `https://www.google.com/search?q=${searchTerm.replace(/ /g, "+")}`
+          };
+        });
     } else {
-        responseText = "Please specify what you want to search for.";
+      responseText = "Please specify what you want to search for.";
     }
   } else if (normalizedCommand.includes("time")) {
     responseText = new Date().toLocaleString(undefined, { hour: "numeric", minute: "numeric" });
@@ -76,23 +88,23 @@ export const processCommand = ({ command, username }) => {
   } else if (normalizedCommand.includes("open car page") || normalizedCommand.includes("open car") || normalizedCommand.includes("car page")) {
     responseText = "Opening car page";
     action = "navigate";
-    url = "/user-cars"; 
+    url = "/user-cars";
   } else if (normalizedCommand.includes("open home page") || normalizedCommand.includes("open home") || normalizedCommand.includes("home page")) {
     responseText = "Opening home page";
     action = "navigate";
-    url = "/";  
+    url = "/";
   } else if (normalizedCommand.includes("open about page") || normalizedCommand.includes("open about") || normalizedCommand.includes("about page")) {
     responseText = "Opening about page";
     action = "navigate";
-    url = "/about";  
+    url = "/about";
   } else if (normalizedCommand.includes("open contact page") || normalizedCommand.includes("open contact") || normalizedCommand.includes("contact page")) {
     responseText = "Opening contact page";
     action = "navigate";
-    url = "/contact";  
+    url = "/contact";
   } else if (normalizedCommand.includes("open maps page") || normalizedCommand.includes("open maps") || normalizedCommand.includes("maps page")) {
     responseText = "Opening maps page";
     action = "navigate";
-    url = "/maps";  
+    url = "/maps";
   }
 
   return { responseText, action, url };
