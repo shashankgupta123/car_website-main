@@ -80,6 +80,34 @@ const login = async (req, res, next) => {
   }
 };
 
+const resetPassword = async (req, res) => {
+  try {
+    const { email, newPassword } = req.body;
+
+    // Check if the user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    console.log("Old Password Hash:", user.password);
+
+    // Use the same hashing method as during registration
+    user.password = newPassword; // Assuming pre-save middleware handles hashing
+
+    // Save the updated user object
+    await user.save();
+
+    console.log("Updated Password Hash in DB:", user.password);
+
+    res.status(200).json({ message: "Password reset successful" });
+  } catch (error) {
+    console.error("Error resetting password:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
 // GET ALL USERS 
 const getAllUsers = async (req, res) => {
   try {
@@ -289,13 +317,14 @@ const searchData = async (req, res) => {
 
 const recordCarVisit = async (req, res) => {
   try {
-    const { userId, carId, carName, variant, description, offers, model_no, colors } = req.body;
+    const { userId, carId, carName, variant, description, offers, model_no, colors, locations } = req.body;
     console.log("Request body:", req.body);
-    if (!userId || !carId || !carName || !variant || !description || !offers || !model_no || !colors) {
+
+    if (!userId || !carId || !carName || !variant || !description || !offers || !model_no || !colors || !locations) {
       return res.status(400).json({ message: "All fields are required." });
     }
+
     const user = await User.findById(userId);
-    
     if (!user) {
       console.error(`User with ID ${userId} not found.`);
       return res.status(404).json({ message: "User not found." });
@@ -304,21 +333,27 @@ const recordCarVisit = async (req, res) => {
     const carIndex = user.carvisited.findIndex((car) => car.name === carName);
     if (carIndex >= 0) {
       user.carvisited[carIndex].visitCount += 1;
+
+      // Ensure locations is an array and add only unique values
+      const existingLocations = user.carvisited[carIndex].locations || [];
+      user.carvisited[carIndex].locations = [...new Set([...existingLocations, locations])];
     } else {
       user.carvisited.push({
         name: carName,
         variant,
         description,
         visitCount: 1,
-        offers,  
-        model_no, 
+        offers,
+        model_no,
         colors: colors.map(color => ({
           color: color.color,
           price: color.price,
-          images: color.images, 
-        }))
+          images: color.images,
+        })),
+        locations: Array.isArray(locations) ? locations : [locations], // Ensure locations is always an array
       });
     }
+
     const result = await user.save();
     console.log("User saved:", result);
     res.status(200).json({ message: "Car visit recorded successfully.", carVisited: user.carvisited });
@@ -380,4 +415,5 @@ export {
   recordCarVisit,
   addFavourite,
   adminlogout,
+  resetPassword,
 };

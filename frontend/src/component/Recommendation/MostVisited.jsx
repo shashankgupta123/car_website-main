@@ -68,6 +68,11 @@ const MostVisitedCar = () => {
                 <p><strong>Variant:</strong> {car.variant}</p>
                 <p><strong>Description:</strong> {car.description}</p>
                 <p><strong>Visit Count:</strong> {car.visitCount}</p>
+                {/* Display Locations Here */}
+                <p><strong>Available Locations:</strong> {car.locations?.length > 0 
+                  ? car.locations.join(", ") 
+                  : "No location data available"}
+                </p>
               </div>
               <div className="car-actions">
                 <Link

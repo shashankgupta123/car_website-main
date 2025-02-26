@@ -41,6 +41,10 @@ const carVisitedSchema = mongoose.Schema({
             required: true,
          }],
     }],
+    locations:{
+        type: [String],
+        required: true,
+    }
   });
 
   const favouriteCarSchema = mongoose.Schema({

@@ -65,6 +65,7 @@ const SimliarCar = () => {
                 <p><strong>Variant:</strong> {car.variant}</p>
                 <p><strong>Description:</strong> {car.description}</p>
                 <p><strong>Similarity Score:</strong> {car.similarityScore}%</p>
+                <p><strong>Available Locations:</strong> {car.locations.join(", ")}</p>
               </div>
               <div className="car-actions">
                 <Link

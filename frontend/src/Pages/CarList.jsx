@@ -87,14 +87,27 @@ const CarList = () => {
       ],
   };
 
-  const handleCardClick = async (carId, carName, variant, description, offers, model_no, colors) => {
+  const handleCardClick = async (carId, carName, variant, description, offers, model_no, colors, locations) => {
     try {
-        const userId = localStorage.getItem("userId");
-        if (!userId || !carId || !carName || !variant || !description || !offers || !model_no || !colors) {
-            console.error("Missing required fields:", { userId, carId, carName, variant, description, offers, model_no, colors });
-            return;
+        const userId = localStorage.getItem("userId"); 
+        console.log("Raw locations data type:", typeof locations);
+        console.log("Raw locations data:", locations);
+    
+        if (typeof locations === "string") {
+            try {
+                locations = JSON.parse(locations); // Try to convert string to an array
+            } catch (error) {
+                console.error("Error parsing locations:", error);
+                locations = []; // Default to an empty array if parsing fails
+            }
         }
-
+    
+        const formattedLocation = Array.isArray(locations) && locations.length > 0 
+            ? locations.map(loc => loc.placeName).join(', ') 
+            : "Not Available";
+    
+        console.log("Formatted location:", formattedLocation); // Debugging
+    
         const response = await fetch("http://localhost:5000/api/users/record-visit", {
             method: "POST",
             headers: {
@@ -108,12 +121,14 @@ const CarList = () => {
                 description, 
                 offers, 
                 model_no, 
-                colors
+                colors,
+                locations: formattedLocation, // Send location as a string
             }),
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            const errorText = await response.text();
+            throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
         }
 
         const data = await response.json();
@@ -183,7 +198,7 @@ const CarList = () => {
             <div
                 key={i}
                 className="car-card"
-                onClick={() => handleCardClick(car._id, car.name, car.variant, car.description, car.offers, car.model_no, car.colors)} // Redirect on click
+                onClick={() => handleCardClick(car._id, car.name, car.variant, car.description, car.offers, car.model_no, car.colors, car.locations )} // Redirect on click
             >
                 <div className="car-header">
                     <h2>{car.name}</h2>
@@ -191,6 +206,12 @@ const CarList = () => {
                     <p><strong>Offers:</strong> {car.offers}</p>
                     {car.colors.length > 0 && (
                         <p className="car-price"><strong>Price:</strong> ₹{car.colors[0].price.toLocaleString()}</p>
+                    )}
+                    {/* Extracting and displaying placeName from locations */}
+                    {car.locations && car.locations.length > 0 ? (
+                        <p><FaMapMarkerAlt /> <strong>Location:</strong> {car.locations.map(loc => loc.placeName).join(', ')}</p>
+                    ) : (
+                        <p><FaMapMarkerAlt /> <strong>Location:</strong> Not Available</p>
                     )}
                 </div>
                 <div className="car-images">

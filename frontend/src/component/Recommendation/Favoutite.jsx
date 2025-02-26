@@ -68,6 +68,7 @@ const FavoriteCars = () => {
                 <p><strong>Model No:</strong> {car.model_no}</p>
                 <p><strong>Description:</strong> {car.description}</p>
                 <p><strong>Offers:</strong> {car.offers}</p>
+                <p><strong>Location:</strong> {car.location?.placeName || "Not Available"}</p>
               </div>
               <div className="car-actions">
                 <Link

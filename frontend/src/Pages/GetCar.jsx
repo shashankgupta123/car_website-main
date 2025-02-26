@@ -132,6 +132,7 @@ const CarDetails = () => {
                 mileage: car.mileage,
                 description: car.description,
                 offers: car.offers,
+                locations: car.locations,
                 colors: [{
                     color: selectedColorDetails?.color,
                     price: selectedColorDetails?.price,
@@ -255,6 +256,17 @@ const CarDetails = () => {
                 </div>
                 <p><strong>Price:</strong> ₹{selectedColor?.price?.toLocaleString() || 'N/A'}</p>
                 <p><strong>Offers:</strong> {car.offers || 'No offers available'}</p>
+                <p><strong>Available Locations:</strong></p>
+                    <ul>
+                        {car.locations && car.locations.length > 0 ? (
+                            car.locations.map((location, index) => (
+                                <li key={index}>{location.placeName}</li> // Only display the placeName
+                            ))
+                        ) : (
+                            <p>No locations available</p>
+                        )}
+                    </ul>
+
                 <button onClick={addToFavorites} className="add-favorite-button">
                     Add to Favorites
                 </button>

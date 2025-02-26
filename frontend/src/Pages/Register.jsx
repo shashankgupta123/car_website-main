@@ -24,19 +24,24 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    console.log("Submitting data:", formData); // ✅ Log the form data before sending
+    
     try {
       const response = await registerUser(formData);
+      console.log("Registration successful:", response); // ✅ Log response if successful
+      
       setFormData({ username: "", email: "", phone: "", password: "" });
       navigate("/login", {
         state: { toastMessage: response.message || "Registration successful!" },
       });
     } catch (error) {
+      console.error("Registration failed:", error.response?.data); // ✅ Log error response
       toast.error(error.response?.data?.message || "Registration failed.");
     }
   };
   
-
-  return (
+    return (
     <>
       <Helmet>
         <title>Registration Page | Wheels and Deals</title>

@@ -73,17 +73,22 @@ def get_new_trends():
 
         if not email:
             return jsonify({"message": "Email is required!"}), 400
+
         user = users_collection.find_one({"email": email.strip()})
         if not user:
             return jsonify({"message": "User not found!"}), 404
-        new_trends = recommend_new_trends(user)
+
+        new_trends = recommend_new_trends()
+
+        print("🟢 New Trends Data:", new_trends) 
+
         return jsonify({
             "message": "New trends generated successfully!",
-            "recommendations": new_trends
+            "recommendations": new_trends.get("new_trends", [])
         }), 200
 
     except Exception as e:
-        print("Error:", e)
+        print("❌ Error:", e)
         return jsonify({"message": f"An error occurred: {str(e)}"}), 500
 
 #last two searches
@@ -129,4 +134,5 @@ def get_favourite_cars():
         return jsonify({"message": f"An error occurred: {str(e)}"}), 500
 
 if __name__ == '__main__':
+    print("Flask is starting")
     app.run(debug=True, port=5001)

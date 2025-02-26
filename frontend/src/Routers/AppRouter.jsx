@@ -30,17 +30,22 @@ import Contact from '../Pages/Contact';
 import Purchase from '../Admin/Purchase/Purchase';
 import PurchaseDetails from '../Admin/Purchase/PurchaseDetails';
 import UserPurchase from '../Pages/UserPurchase';
+import ForgotPassword from '../component/ForgotPassword/ForgotPassword';
+import ResetPassword from '../component/ForgotPassword/ResetPassword';
+import ReviewsPage from '../Admin/Reviews/ReviewPage';
 
 function AppRouter() {
     const token = localStorage.getItem("token");
     const admin = localStorage.getItem("admin") === "true";
 
     return (
-        <AuthProvider>
+        // <AuthProvider>
         <Routes>
             {/* Common Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/forgot password" element={<ForgotPassword/> }/> 
+            <Route path="/reset-password" element={<ResetPassword/> }/>
 
             {/* User Routes */}
             {!admin && (
@@ -76,13 +81,14 @@ function AppRouter() {
                     <Route path="/admin/contact" element={<AdminLayout><Contact_Us/></AdminLayout>} />
                     <Route path="/admin/purchase" element={<AdminLayout><Purchase/></AdminLayout>}/>
                     <Route path="/purchase-details/:id" element={<AdminLayout><PurchaseDetails/></AdminLayout>}/>
+                    <Route path="/admin/reviews" element={<AdminLayout><ReviewsPage/> </AdminLayout>} />
                 </>
             )}
 
             {/* Fallback Route */}
             {/* <Route path="*" element={<Navigate to={token ? (isAdmin ? "/admin-dashboard" : "/") : "/login"} />} /> */}
         </Routes>
-        </AuthProvider>
+        // </AuthProvider>
     );
 }
 

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Container, Row, Col } from "reactstrap";
@@ -35,7 +35,7 @@ const navLinks = [
   },
 ];
 
-const Header = () => {
+const Header = forwardRef((props, ref) => {
   const navigate = useNavigate();
   const menuRef = useRef(null);
   const [searchTerm, setSearchTerm] =useState('');
@@ -50,7 +50,7 @@ const Header = () => {
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
 
   const handleSearch = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
 
     if (!userEmail) {
       alert("You must be logged in to submit a search term.");
@@ -76,6 +76,9 @@ const Header = () => {
     }
   };
 
+  useImperativeHandle(ref, () => ({
+    handleSearch,
+  }));
   return (
     <header className="header">
       {/* ============ header top ============ */}
@@ -206,6 +209,6 @@ const Header = () => {
       </div>
     </header>
   );
-};
+});
 
 export default Header;

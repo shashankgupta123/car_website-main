@@ -94,6 +94,7 @@ const AdminPage = () => {
           <li><Link to="/admin/users">Users</Link></li>
           <li><Link to="/admin/contact">Contact</Link></li>
           <li><Link to="/admin/purchase">Payment List</Link></li>
+          <li><Link to="/admin/reviews">Reviews</Link></li>
           
         </ul>
       </div>

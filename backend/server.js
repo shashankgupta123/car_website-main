@@ -45,18 +45,22 @@ connectDb().then(()=> {
     })
 })
 
-app.post("/process-command", (req, res) => {
+app.post("/process-command", async (req, res) => {
   try {
     console.log("Request body:", req.body);
-    const { command, username } = req.body; 
+    const { command, username } = req.body;
+
     if (!command) {
       throw new Error("Command is missing from the request body.");
     }
+
     console.log("Command received:", command);
     console.log("Username received:", username);
 
-    const { responseText, action, url } = processCommand({ command, username });
-    res.json({ response: responseText, action, url });
+    const result = await processCommand({ command, username }); // Ensure async handling
+    console.log("Response Data:", result); // Log response before sending
+
+    res.json(result); // Send response correctly
   } catch (error) {
     console.error("Error in /process-command:", error.message);
     res.status(500).json({ message: error.message });

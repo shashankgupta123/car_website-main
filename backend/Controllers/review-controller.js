@@ -64,3 +64,53 @@ export const getCarReviews = async (req, res) => {
   }
 };
 
+export const getAllCarReviews = async (req, res) => {
+    try {
+      console.log("Fetching all car reviews...");
+  
+      // Populate only the `name` from `Car` and return other review details as they are
+      const reviews = await CarReview.find()
+        .populate({ path: "carId", select: "name" }) // Fetch only `name` from Car
+        .select("-__v"); // Exclude __v field from review results
+  
+      if (!reviews || reviews.length === 0) {
+        return res.status(404).json({ message: "No car reviews found" });
+      }
+  
+      // Debugging: Log fetched reviews
+      console.log("Fetched Car Reviews:", reviews);
+  
+      const formattedReviews = reviews.map((review) => ({
+        _id: review._id,
+        carName: review.carId?.name || "Unknown Car", // Replace 'title' with 'name'
+        username: review.username,
+        rating: review.rating,
+        reviewText: review.reviewText,
+        createdAt: review.createdAt,
+      }));
+  
+      res.status(200).json(formattedReviews);
+    } catch (err) {
+      console.error("Error fetching car reviews:", err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  };
+  
+  // Delete a car review
+  export const deleteCarReview = async (req, res) => {
+    try {
+      const { reviewId } = req.params;
+      console.log(`Deleting car review with ID: ${reviewId}`);
+  
+      const deletedReview = await CarReview.findByIdAndDelete(reviewId);
+  
+      if (!deletedReview) {
+        return res.status(404).json({ message: "Car review not found" });
+      }
+  
+      res.status(200).json({ message: "Car review deleted successfully!" });
+    } catch (err) {
+      console.error("Error deleting car review:", err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  };

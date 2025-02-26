@@ -10,6 +10,7 @@ import {register,
     recordCarVisit,
     addFavourite,
     adminlogout,
+    resetPassword,
 } from "../Controllers/user-controller.js";
 
 const router = express.Router();
@@ -17,6 +18,7 @@ const router = express.Router();
 // Public Routes
 router.post("/register", register);
 router.post("/login", login);
+router.post("/reset-password",resetPassword);
 
 // Admin Routes (Protected)
 router.get("/", getAllUsers);
