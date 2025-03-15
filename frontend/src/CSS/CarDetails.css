@@ -9,6 +9,7 @@
     background-color: #f9f9f9;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     animation: fadeIn 1.5s forwards;
+    flex-wrap: wrap; /* Allow wrapping for better responsiveness */
 }
 
 /* Animation for fade-in effect */
@@ -23,8 +24,13 @@
 
 /* Left section: Car image */
 .car-image-container {
-    flex: 1; /* Take up 50% of the width */
-    padding-right: 2rem; /* Space between image and details */
+    flex: 1;
+    padding-right: 2rem;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    text-align: center;
 }
 
 .car-detail-image {
@@ -41,8 +47,8 @@
 
 /* Right section: Car details */
 .car-details {
-    flex: 1; /* Take up the other 50% of the width */
-    padding-left: 2rem; /* Space between image and details */
+    flex: 1;
+    padding-left: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -59,21 +65,7 @@
     border-right: 2px solid #333;
 }
 
-@keyframes typing {
-    from {
-        width: 0;
-    }
-    to {
-        width: 22ch;
-    }
-}
-
-@keyframes blinkCaret {
-    50% {
-        border-color: transparent;
-    }
-}
-
+/* Styling for car details */
 .car-details-container p {
     font-size: 1.1rem;
     line-height: 1.6;
@@ -86,6 +78,7 @@
     color: #f9a826;
 }
 
+/* Favorite button */
 .add-favorite-button {
     display: block;
     width: 100%;
@@ -108,14 +101,7 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.error-message {
-    color: red;
-    text-align: center;
-    margin-top: 1.5rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
+/* Color selection */
 .color-selection-container {
     display: flex;
     gap: 10px;
@@ -133,4 +119,237 @@
 
 .color-circle:hover {
     border: 2px solid #000;
+}
+
+/* Reviews and Ratings Section (Moved to Bottom) */
+/* Reviews Section */
+.car-reviews-section {
+    margin-top: 40px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Heading */
+.car-reviews-section h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* No Reviews Message */
+.no-reviews {
+    font-style: italic;
+    color: #777;
+}
+
+/* Horizontal Scroll Container */
+.car-reviews-list {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    padding-bottom: 10px;
+    scrollbar-width: none; /* Hide scrollbar for modern browsers */
+    -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+}
+
+/* Hide scrollbar for Webkit browsers */
+.car-reviews-list::-webkit-scrollbar {
+    display: none;
+}
+
+/* Individual Review Card */
+.car-review-item {
+    min-width: 250px;
+    max-width: 250px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    transition: transform 0.3s ease-in-out;
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    word-wrap: break-word; /* Ensure long words wrap */
+    white-space: normal; /
+}
+.car-review-item::-webkit-scrollbar {
+    width: 5px;
+}
+.car-review-item::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.book-review-item::-webkit-scrollbar-track {
+    background: #f8f9fa;
+}
+
+/* Hover effect */
+.car-review-item:hover {
+    transform: scale(1.05);
+}
+
+/* Username & Rating */
+.car-review-item strong {
+    font-size: 16px;
+    color: #222;
+}
+
+.car-review-rating {
+    color: #f4b400;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+/* Review Text */
+.car-review-text {
+    max-height: 100px; /* Adjust based on your preference */
+    overflow-y: auto;
+    word-wrap: break-word;
+    white-space: pre-wrap; /* Ensures text wraps properly */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #ccc #f1f1f1; /* Firefox */
+}
+
+/* Custom scrollbar for WebKit browsers */
+.car-review-text::-webkit-scrollbar {
+    width: 6px;
+}
+
+.car-review-text::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 10px;
+}
+
+.car-review-text::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+/* Add Review Form */
+.car-add-review-container {
+    margin-top: 20px;
+    padding: 15px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.car-add-review-container h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+.car-rating-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#rating-select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.car-review-textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: none;
+}
+
+.car-submit-review-button {
+    display: block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.car-submit-review-button:hover {
+    background: #0056b3;
+}
+
+.car-submit-review-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    justify-content: center; /* Center them horizontally */
+    align-items: center;
+    margin-top: 10px; /* Adjust spacing as needed */
+}
+
+.button-container {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    justify-content: center; /* Align buttons in center */
+    align-items: center;
+    margin-top: 10px;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    justify-content: center; /* Align buttons in center */
+    align-items: center;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    margin-top: 10px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px; /* Space between buttons */
+    align-items: center; /* Center align buttons */
+    margin-top: 10px;
+}
+
+.add-favorite-button, .rent-now-button {
+    padding: 12px 24px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+    text-align: center;
+    width: 200px; /* Make buttons equal width */
+}
+
+.add-favorite-button {
+    background-color: #ff5733;
+    color: white;
+}
+
+.add-favorite-button:hover {
+    background-color: #e64a19;
+}
+
+.rent-now-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.rent-now-button:hover {
+    background-color: #0056b3;
 }

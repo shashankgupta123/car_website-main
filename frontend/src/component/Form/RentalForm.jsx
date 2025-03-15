@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import "./RentalForm.css";
+import "./RentalForm.css";
 
 const RentalForm = ({ car, onClose }) => {
     const [userId, setUserId] = useState(null);
@@ -192,12 +192,12 @@ const RentalForm = ({ car, onClose }) => {
     }, [formData.pickupDate, formData.dropoffDate, paymentOption]);
 
     return (
-        <div className="rental-modal">
-            <div className="rental-modal-content">
-                <span className="close-btn" onClick={onClose}>&times;</span>
+        <div className="rental-modal-unique">
+            <div className="rental-modal-content-unique">
+                <span className="close-btn-unique" onClick={onClose}>&times;</span>
                 <h2>Rent {car?.name}</h2>
-                {error && <p className="error-message">{error}</p>}
-                <div className="scroll-container">
+                {error && <p className="error-message-unique">{error}</p>}
+                <div className="scroll-container-unique">
                     <label>Pickup Location:</label>
                     <select name="pickupLocation" value={formData.pickupLocation} onChange={handleChange} required>
                         <option value="">Select Pickup Location</option>
@@ -205,7 +205,7 @@ const RentalForm = ({ car, onClose }) => {
                             <option key={location} value={location}>{location}</option>
                         ))}
                     </select>
-
+    
                     <label>Drop-off Location:</label>
                     <select name="dropoffLocation" value={formData.dropoffLocation} onChange={handleChange} required>
                         <option value="">Select Drop-off Location</option>
@@ -213,56 +213,58 @@ const RentalForm = ({ car, onClose }) => {
                             <option key={location} value={location}>{location}</option>
                         ))}
                     </select>
-
+    
                     <label>Select Car Color:</label>
-                    <div className="color-selector">
+                    <div className="color-selector-unique">
                         {car.colors.map((color) => (
                             <div
                                 key={color.color}
-                                className={`color-swatch ${formData.selectedColor === color.color ? 'selected' : ''}`}
+                                className={`color-swatch-unique ${formData.selectedColor === color.color ? 'selected' : ''}`}
                                 style={{ backgroundColor: color.color }}
                                 onClick={() => handleColorSelect(color.color)}
                             >
-                                <span className="color-name">{color.color}</span>
+                                <span className="color-name-unique">{color.color}</span>
                             </div>
                         ))}
                     </div>
-
+    
                     <label>Pickup Date:</label>
                     <input type="date" name="pickupDate" value={formData.pickupDate} onChange={handleDateChange} required />
-
+    
                     <label>Drop-off Date:</label>
                     <input type="date" name="dropoffDate" value={formData.dropoffDate} onChange={handleDateChange} required />
-
+    
                     <label>Full Name:</label>
                     <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} required />
-
+    
                     <label>Phone Number:</label>
                     <input type="text" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
-
+    
                     <label>Email:</label>
                     <input type="email" name="email" value={formData.email} onChange={handleChange} required />
-
+    
                     <label>License Name:</label>
                     <input type="text" name="driversLicense" value={formData.driversLicense} onChange={handleChange} required />
-
+    
                     <label>License Expiry Date:</label>
                     <input type="date" name="licenseExpiry" value={formData.licenseExpiry} onChange={handleChange} required />
-
+    
                     <label>Payment Option:</label>
                     <select value={paymentOption} onChange={(e) => setPaymentOption(e.target.value)}>
-                    <option value="full">Full Payment</option>
-                    <option value="40_60">40% Now, 60% Later</option>
-                </select>
+                        <option value="full">Full Payment</option>
+                        <option value="40_60">40% Now, 60% Later</option>
+                    </select>
+    
                     <label>Car Price: Rs.{formData.price}</label>
                     <label>Security Deposit: Rs.{formData.securityDeposit}</label>
                     <label>Balance: Rs.{formData.balance}</label>
                 </div>
-
-                <button onClick={buyNow} className="buy-now-button">Buy Now</button>
+    
+                <button onClick={buyNow} className="buy-now-button-unique">Buy Now</button>
             </div>
         </div>
     );
+    
 };
 
 export default RentalForm;

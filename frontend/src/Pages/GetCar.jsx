@@ -19,6 +19,7 @@ const CarDetails = () => {
     const [reviews, setReviews] = useState([]);
     const [rating, setRating] = useState(0);
     const [reviewText, setReviewText] = useState('');
+    const reviewListRef= useRef(null);
 
     useEffect(() => {
         const storedUserId = localStorage.getItem('userId');
@@ -73,6 +74,29 @@ const CarDetails = () => {
         fetchCarDetails();
         fetchReviews();
     }, [name]);
+
+    useEffect(() => {
+        if (reviews.length > 4) {
+            const interval = setInterval(() => {
+                if (reviewListRef.current) {
+                    reviewListRef.current.scrollBy({
+                        left: 260, // Move by one review width
+                        behavior: "smooth"
+                    });
+
+                    // Loop back to the start when reaching the end
+                    if (
+                        reviewListRef.current.scrollLeft + reviewListRef.current.clientWidth >= 
+                        reviewListRef.current.scrollWidth
+                    ) {
+                        reviewListRef.current.scrollTo({ left: 0, behavior: "smooth" });
+                    }
+                }
+            }, 3000); // Scroll every 3 seconds
+
+            return () => clearInterval(interval);
+        }
+    }, [reviews]);
 
     const handleAddReview = async () => {
         if (!userId) {
@@ -267,15 +291,15 @@ const CarDetails = () => {
                         )}
                     </ul>
 
-                <button onClick={addToFavorites} className="add-favorite-button">
-                    Add to Favorites
-                </button>
-                {/* <button onClick={buyNow} className="buy-now-button">
-                    Buy Now
-                </button> */}
-                <button onClick={handleRentNow} className="rent-now-button">
-                    Rent Now
-                </button>
+                    <div className="button-container">
+                        <button onClick={addToFavorites} className="add-favorite-button">
+                            Add to Favorites
+                        </button>
+                        <button onClick={handleRentNow} className="rent-now-button">
+                            Rent Now
+                        </button>
+                    </div>
+
             </div>
             {showRentalForm && (
                 <RentalForm 
@@ -287,29 +311,26 @@ const CarDetails = () => {
             )}
 
         {/* Add Review Form */}
-        <div className="reviews-section">
-    <h3>Customer Reviews</h3>
-
-    {reviews.length === 0 ? (
-        <p className="no-reviews">No reviews yet. Be the first to review this car!</p>
-    ) : (
-        <div className="reviews-list">
-            {reviews.map((review, index) => (
-                <div key={index} className="review-item">
-                    <p>
-                        <strong>{review.username}</strong> - 
-                        <span className="review-rating"> {review.rating} Stars</span>
-                    </p>
-                    <p className="review-text">{review.reviewText}</p>
+       {/* Reviews Section */}
+       <div className="car-reviews-section">
+            <h3>Customer Reviews</h3>
+            {reviews.length === 0 ? (
+                <p className="no-reviews">No reviews yet. Be the first to review this car!</p>
+            ) : (
+                <div className="car-reviews-list" ref={reviewListRef}>
+                    {reviews.map((review, index) => (
+                        <div key={index} className="car-review-item">
+                            <p><strong>{review.username}</strong> - <span className="car-review-rating">{"⭐".repeat(review.rating)}</span></p>
+                            <p className="car-review-text">{review.reviewText}</p>
+                        </div>
+                    ))}
                 </div>
-            ))}
-        </div>
     )}
 
     {/* Add Review Form */}
-    <div className="add-review-container">
+    <div className="car-add-review-container">
         <h4>Write a Review</h4>
-        <div className="rating-container">
+        <div className="car-rating-container">
             <label htmlFor="rating-select">Rating:</label>
             <select
                 id="rating-select"
@@ -318,7 +339,7 @@ const CarDetails = () => {
             >
                 <option value={0} disabled>Select Rating</option>
                 {[1, 2, 3, 4, 5].map((star) => (
-                    <option key={star} value={star}>{star} Star</option>
+                    <option key={star} value={star}>{"⭐".repeat(star)}</option>
                 ))}
             </select>
         </div>
@@ -326,12 +347,12 @@ const CarDetails = () => {
             value={reviewText}
             onChange={(e) => setReviewText(e.target.value)}
             placeholder="Write your review here..."
-            className="review-textarea"
+            className="car-review-textarea"
             rows="4"
         ></textarea>
         <button 
             onClick={handleAddReview} 
-            className="submit-review-button"
+            className="car-submit-review-button"
             disabled={rating === 0 || reviewText.trim() === ''}
         >
             Submit Review

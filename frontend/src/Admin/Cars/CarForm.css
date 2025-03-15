@@ -1,0 +1,83 @@
+.car-form-unique {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #bcd8f3;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.car-form-unique h1 {
+    text-align: center;
+    color: #343a40;
+}
+
+.car-form-unique label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+.car-form-unique input,
+.car-form-unique textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.car-form-unique button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.car-form-unique button:hover {
+    background-color: #0056b3;
+}
+
+.car-form-unique .remove-btn {
+    background-color: #dc3545;
+    margin-top: 5px;
+}
+
+.car-form-unique .remove-btn:hover {
+    background-color: #c82333;
+}
+
+.car-form-unique .loading-screen {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.loading-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-size: 20px;
+    color: #333;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(0, 0, 0, 0.2);
+    border-top: 5px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { addCar } from "../../service/carServices";
 import { useNavigate } from "react-router-dom";
+import './CarForm.css';
 
 const CarForm = () => {
     const [carData, setCarData] = useState({
@@ -18,7 +19,13 @@ const CarForm = () => {
 
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 2000);
+        return () => clearTimeout(timer);
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -132,147 +139,58 @@ const CarForm = () => {
             }
         }
     };
+    if (loading) {
+        return (
+            <div className="loading-screen">
+                <div className="loading-spinner"></div>
+                <p>Loading Car Form...</p>
+            </div>
+        );
+    }
 
     return (
-        <div>
-            <h1>Add a New Car</h1>
+        <div className="car-form-container car-form-unique">
             {message && <p style={{ color: "green" }}>{message}</p>}
             {error && <p style={{ color: "red" }}>{error}</p>}
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Name:</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={carData.name}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+            <form className="car-form" onSubmit={handleSubmit}>
+                <h1 className="form-title">Add a New Car</h1>
 
-                <div>
-                    <label>Variant:</label>
-                    <input
-                        type="text"
-                        name="variant"
-                        value={carData.variant}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                <label>Name:</label>
+                <input type="text" name="name" value={carData.name} onChange={handleChange} required />
 
-                <div>
-                    <label>Colors:</label>
-                    {carData.colors.map((color, index) => (
-                        <div key={index}>
-                            <div>
-                                <label>Color:</label>
-                                <input
-                                    type="text"
-                                    name="color"
-                                    value={color.color}
-                                    onChange={(e) => handleColorChange(e, index)}
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label>Price:</label>
-                                <input
-                                    type="number"
-                                    name="price"
-                                    value={color.price}
-                                    onChange={(e) => handleColorChange(e, index)}
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label>Images (comma-separated URLs):</label>
-                                <input
-                                    type="text"
-                                    name="images"
-                                    value={color.images}
-                                    onChange={(e) => handleColorChange(e, index)}
-                                    required
-                                />
-                            </div>
-                            <button type="button" onClick={() => handleRemoveColor(index)}>Remove Color</button>
-                        </div>
-                    ))}
-                    <button type="button" onClick={handleAddColor}>Add Another Color</button>
-                </div>
+                <label>Variant:</label>
+                <input type="text" name="variant" value={carData.variant} onChange={handleChange} required />
 
-                <div>
-                    <label>Offers:</label>
-                    <input
-                        type="text"
-                        name="offers"
-                        value={carData.offers}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <label>Model Number:</label>
-                    <input
-                        type="text"
-                        name="model_no"
-                        value={carData.model_no}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Description:</label>
-                    <textarea
-                        name="description"
-                        value={carData.description}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <label>Date (YYYY-MM-DD):</label>
-                    <input
-                        type="date"
-                        name="date"
-                        value={carData.date}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Year:</label>
-                    <input
-                        type="number"
-                        name="year"
-                        value={carData.year}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Mileage:</label>
-                    <input
-                        type="text"
-                        name="mileage"
-                        value={carData.mileage}
-                        onChange={handleChange}
-                    />
-                    <label>Locations:</label>
-                    {carData.locations.map((location, index) => (
-                        <div key={index}>
-                            <label>Latitude:</label>
-                            <input type="number" value={location.latitude} onChange={(e) => handleLocationChange(index, "latitude", e.target.value)} required />
-                            <label>Longitude:</label>
-                            <input type="number" value={location.longitude} onChange={(e) => handleLocationChange(index, "longitude", e.target.value)} required />
-                            <label>Quantity:</label>
-                            <input type="number" value={location.quantity} onChange={(e) => handleLocationChange(index, "quantity", e.target.value)} required />
-                            <label>Place Name:</label>
-                            <input type="text" value={location.placeName} onChange={(e) => handleLocationChange(index, "placeName", e.target.value)} required />
-                            <button type="button" onClick={() => removeLocation(index)}>Remove Location</button>
-                        </div>
-                    ))}
-                    <button type="button" onClick={addLocation}>Add Location</button>
-                </div>
-                <button type="submit">Add Car</button>
+                <label>Colors:</label>
+                {carData.colors.map((color, index) => (
+                    <div key={index}>
+                        <input type="text" name="color" value={color.color} onChange={(e) => handleColorChange(index, "color", e.target.value)} required />
+                        <input type="number" name="price" value={color.price} onChange={(e) => handleColorChange(index, "price", e.target.value)} required />
+                        <input type="text" name="images" value={color.images} onChange={(e) => handleColorChange(index, "images", e.target.value)} required />
+                        <button type="button" className="remove-btn" onClick={() => handleRemoveColor(index)}>Remove</button>
+                    </div>
+                ))}
+                <button type="button" onClick={handleAddColor}>Add Color</button>
+
+                <label>Offers:</label>
+                <input type="text" name="offers" value={carData.offers} onChange={handleChange} />
+
+                <label>Model Number:</label>
+                <input type="text" name="model_no" value={carData.model_no} onChange={handleChange} required />
+
+                <label>Description:</label>
+                <textarea name="description" value={carData.description} onChange={handleChange}></textarea>
+
+                <label>Date:</label>
+                <input type="date" name="date" value={carData.date} onChange={handleChange} required />
+
+                <label>Year:</label>
+                <input type="number" name="year" value={carData.year} onChange={handleChange} required />
+
+                <label>Mileage:</label>
+                <input type="text" name="mileage" value={carData.mileage} onChange={handleChange} />
+
+                <button type="submit">Submit</button>
             </form>
         </div>
     );

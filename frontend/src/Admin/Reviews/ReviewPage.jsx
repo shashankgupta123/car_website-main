@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import './ReviewPage.css';
 
 const ReviewsPage = () => {
   const [reviews, setReviews] = useState([]);
@@ -37,29 +38,22 @@ const ReviewsPage = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div style={{ maxWidth: "600px", margin: "auto", textAlign: "center" }}>
-      <h2>All Car Reviews</h2>
+    <div className="reviews-page-container">
+      <h2 className="reviews-page-title">All Reviews</h2>
       {reviews.length === 0 ? (
-        <p>No car reviews found.</p>
+        <p className="reviews-page-no-reviews">No reviews found.</p>
       ) : (
-        <ul style={{ listStyle: "none", padding: 0 }}>
+        <ul className="reviews-page-list">
           {reviews.map((review) => (
-            <li key={review._id} style={{ borderBottom: "1px solid #ccc", padding: "10px" }}>
-              <h3>{review.carName}</h3>
-              <p><strong>By:</strong> {review.username}</p>
-              <p><strong>Rating:</strong> {review.rating} ⭐</p>
-              <p>{review.reviewText}</p>
-              <p><small>{new Date(review.createdAt).toLocaleString()}</small></p>
-              <button
-                onClick={() => deleteCarReview(review._id)}
-                style={{
-                  backgroundColor: "red",
-                  color: "white",
-                  border: "none",
-                  padding: "5px 10px",
-                  cursor: "pointer",
-                  borderRadius: "5px"
-                }}
+            <li key={review._id} className="reviews-page-item">
+              <h3 className="reviews-page-book-title">{review.bookTitle}</h3>
+              <p className="reviews-page-author"><strong>By:</strong> {review.username}</p>
+              <p className="reviews-page-rating"><strong>Rating:</strong> {review.rating} ⭐</p>
+              <p className="reviews-page-text">{review.reviewText}</p>
+              <p className="reviews-page-date"><small>{new Date(review.createdAt).toLocaleString()}</small></p>
+              <button 
+                onClick={() => deleteCarReview(review._id)} 
+                className="reviews-page-delete-btn"
               >
                 Delete Review
               </button>

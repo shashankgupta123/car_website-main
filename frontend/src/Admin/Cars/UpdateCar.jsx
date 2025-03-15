@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCars, updateCar } from "../../service/carServices";
+import './CarForm.css';
 
 const UpdateCar = () => {
     const { name } = useParams();
+    const[loading, setLoading]=useState(true);
     const [carData, setCarData] = useState({
         name: "",
         variant: "",
@@ -46,6 +48,13 @@ const UpdateCar = () => {
 
         fetchCarData();
     }, [name]);
+    useEffect(() => {
+        // Simulate API call or delay
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, []);
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -136,154 +145,87 @@ const UpdateCar = () => {
             setError(err.message || "Failed to update car details");
         }
     };
+    if (loading) {
+        return (
+            <div className="loading-screen">
+                <div className="loading-spinner"></div>
+                <p>Loading Car Form...</p>
+            </div>
+        );
+    }
 
     return (
-        <div>
+        <div className="car-form-container car-form-unique">
             <h1>Update Car Information</h1>
-            {message && <p style={{ color: "green" }}>{message}</p>}
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <form onSubmit={handleSubmit}>
-                <div>
+            <form className="car-form" onSubmit={(e) => handleSubmit(e, carData)}>
+                <div className="from-group">
                     <label>Name:</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={carData.name}
-                        onChange={handleChange}
-                        required
-                    />
+                    <input type="text" name="name" value={carData.name} onChange={handleChange} required />
                 </div>
 
-                <div>
+                <div className="form-group">
                     <label>Variant:</label>
-                    <input
-                        type="text"
-                        name="variant"
-                        value={carData.variant}
-                        onChange={handleChange}
-                        required
-                    />
+                    <input type="text" name="variant" value={carData.variant} onChange={handleChange} required />
                 </div>
 
-                <div>
+                <div className="form-group">
                     <label>Colors:</label>
                     {carData.colors.map((color, index) => (
-                        <div key={index}>
-                            <div>
-                                <label>Color:</label>
-                                <input
-                                    type="text"
-                                    name="color"
-                                    value={color.color}
-                                    onChange={(e) => handleColorChange(e, index)}
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label>Price:</label>
-                                <input
-                                    type="number"
-                                    name="price"
-                                    value={color.price}
-                                    onChange={(e) => handleColorChange(e, index)}
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label>Images (comma-separated URLs):</label>
-                                <input
-                                    type="text"
-                                    name="images"
-                                    value={color.images}
-                                    onChange={(e) => handleColorChange(e, index)}
-                                    required
-                                />
-                            </div>
-                            <button type="button" onClick={() => handleRemoveColor(index)}>
-                                Remove Color
-                            </button>
+                        <div key={index} className="color-group">
+                            <input type="text" name="color" placeholder="Color" value={color.color} onChange={(e) => handleColorChange(e, index)} required />
+                            <input type="number" name="price" placeholder="Price" value={color.price} onChange={(e) => handleColorChange(e, index)} required />
+                            <input type="text" name="images" placeholder="Images (comma-separated)" value={color.images} onChange={(e) => handleColorChange(e, index)} required />
+                            <button type="button" onClick={() => handleRemoveColor(index)}>Remove</button>
                         </div>
                     ))}
                     <button type="button" onClick={handleAddColor}>Add Another Color</button>
                 </div>
 
-                <div>
+                <div className="form-group">
                     <label>Offers:</label>
-                    <input
-                        type="text"
-                        name="offers"
-                        value={carData.offers}
-                        onChange={handleChange}
-                    />
+                    <input type="text" name="offers" value={carData.offers} onChange={handleChange} />
                 </div>
 
-                <div>
+                <div className="form-group">
                     <label>Model Number:</label>
-                    <input
-                        type="text"
-                        name="model_no"
-                        value={carData.model_no}
-                        onChange={handleChange}
-                        required
-                    />
+                    <input type="text" name="model_no" value={carData.model_no} onChange={handleChange} required />
                 </div>
 
-                <div>
+                <div className="form-group">
                     <label>Description:</label>
-                    <textarea
-                        name="description"
-                        value={carData.description}
-                        onChange={handleChange}
-                    />
+                    <textarea name="description" value={carData.description} onChange={handleChange} />
                 </div>
 
-                <div>
+                <div className="form-group">
                     <label>Date (YYYY-MM-DD):</label>
-                    <input
-                        type="date"
-                        name="date"
-                        value={carData.date}
-                        onChange={handleChange}
-                        required
-                    />
+                    <input type="date" name="date" value={carData.date} onChange={handleChange} required />
                 </div>
 
-                <div>
+                <div className="form-group">
                     <label>Year:</label>
-                    <input
-                        type="number"
-                        name="year"
-                        value={carData.year}
-                        onChange={handleChange}
-                        required
-                    />
+                    <input type="number" name="year" value={carData.year} onChange={handleChange} required />
                 </div>
 
-                <div>
+                <div className="form-group">
                     <label>Mileage:</label>
-                    <input
-                        type="text"
-                        name="mileage"
-                        value={carData.mileage}
-                        onChange={handleChange}
-                    />
+                    <input type="text" name="mileage" value={carData.mileage} onChange={handleChange} />
                 </div>
 
-                <div>
+                <div className="form-group">
                     <label>Locations:</label>
                     {carData.locations.map((location, index) => (
-                        <div key={index}>
+                        <div key={index} className="location-group">
                             <input type="text" name="placeName" placeholder="Place Name" value={location.placeName} onChange={(e) => handleLocationChange(e, index)} required />
                             <input type="number" name="latitude" placeholder="Latitude" value={location.latitude} onChange={(e) => handleLocationChange(e, index)} required />
                             <input type="number" name="longitude" placeholder="Longitude" value={location.longitude} onChange={(e) => handleLocationChange(e, index)} required />
                             <input type="number" name="quantity" placeholder="Quantity" value={location.quantity} onChange={(e) => handleLocationChange(e, index)} required />
-                            <button type="button" onClick={() => handleRemoveLocation(index)}>Remove Location</button>
+                            <button type="button" onClick={() => handleRemoveLocation(index)}>Remove</button>
                         </div>
                     ))}
                     <button type="button" onClick={handleAddLocation}>Add Location</button>
                 </div>
 
-                <button type="submit">Update Car</button>
+                <button type="submit" className="submit-btn">Update Car</button>
             </form>
         </div>
     );

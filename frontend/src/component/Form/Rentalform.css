@@ -1,6 +1,6 @@
-.rental-modal {
+.rental-modal-unique {
     position: fixed;
-    bottom: 30px; /* Raised slightly above the bottom */
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -11,75 +11,113 @@
     z-index: 1000;
 }
 
-.rental-modal-content {
+.rental-modal-content-unique {
     background: white;
     padding: 25px;
     border-radius: 20px;
-    width: 95%; /* Increased width */
-    max-width: 500px; /* Increased max-width */
+    width: 95%;
+    max-width: 500px;
     position: relative;
-    max-height: 75vh; /* Increased height */
+    max-height: 75vh;
     overflow: hidden;
-    box-shadow: 0px 0px 15px rgba(0, 0, 255, 0.4); /* Blue glow highlight */
+    box-shadow: 0px 0px 15px rgba(0, 0, 255, 0.4);
     animation: slideUp 0.3s ease-in-out;
     display: flex;
-    flex-direction: column; /* Arrange content in column */
+    flex-direction: column;
 }
 
-/* Scrollable area should not include the button */
-.scroll-container {
-    flex-grow: 1; /* Makes it take available space */
-    max-height: 60vh; /* Ensure form doesn't overflow */
+.scroll-container-unique {
+    flex-grow: 1;
+    max-height: 60vh;
     overflow-y: auto;
     padding-right: 10px;
     padding-bottom: 15px;
 }
 
-/* Custom Scrollbar */
-.scroll-container::-webkit-scrollbar {
+.scroll-container-unique::-webkit-scrollbar {
     width: 6px;
 }
 
-.scroll-container::-webkit-scrollbar-thumb {
-    background: #007BFF; /* Highlighted blue scrollbar */
+.scroll-container-unique::-webkit-scrollbar-thumb {
+    background: #007BFF;
     border-radius: 10px;
 }
 
+/* Label styling */
 label {
     display: block;
     margin-bottom: 10px;
-    font-weight: bold; /* Highlighting labels */
+    font-weight: bold;
     color: #333;
 }
 
-@keyframes slideUp {
-    from {
-        transform: translateY(100%);
-    }
-    to {
-        transform: translateY(0);
-    }
+/* Dropdown select box styling */
+select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: border-color 0.3s ease-in-out;
 }
 
-.close-btn {
+/* Dropdown hover effect */
+select:hover {
+    border-color: #007bff;
+}
+
+/* Dropdown focus effect */
+select:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 91, 187, 0.5);
+}
+
+/* Custom dropdown container */
+.dropdown-container-unique {
+    position: relative;
+    width: 100%;
+}
+
+/* Dropdown arrow */
+.dropdown-container-unique::after {
+    content: "▼";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #555;
+    pointer-events: none;
+}
+
+/* Close button */
+.close-btn-unique {
     position: absolute;
     top: 10px;
     right: 15px;
     font-size: 22px;
     cursor: pointer;
-    color: red; /* Highlight close button */
+    color: red;
     font-weight: bold;
 }
 
-/* Ensure button is visible */
-.button-container {
+/* Button container */
+.button-container-unique {
     padding-top: 10px;
     background: white;
-    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1); /* Small shadow for separation */
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
 }
 
-button {
-    background-color: #007BFF; /* Vibrant blue */
+/* Buy Now button */
+.buy-now-button-unique {
+    background-color: #007BFF;
     color: white;
     padding: 12px;
     border: none;
@@ -90,17 +128,19 @@ button {
     transition: background 0.3s;
 }
 
-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+.buy-now-button-unique:hover {
+    background-color: #0056b3;
 }
 
-.color-selector {
+/* Color selector */
+.color-selector-unique {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
 }
 
-.color-swatch {
+/* Color swatches */
+.color-swatch-unique {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -111,53 +151,27 @@ button:hover {
     color: white;
     font-size: 12px;
     font-weight: bold;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease-in-out;
 }
 
-.color-swatch.selected {
+.color-swatch-unique.selected {
     border: 3px solid #000;
 }
 
-.color-name {
+/* Color name */
+.color-name-unique {
     position: absolute;
     bottom: -20px;
     font-size: 12px;
 }
 
-/* Styling for the dropdown list */
-select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: #fff;
-    transition: all 0.3s ease;
+/* Animation for modal */
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
 }
-
-/* Style the dropdown when it's focused */
-select:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-/* Style the options in the dropdown */
-option {
-    padding: 10px;
-    font-size: 16px;
-}
-
-/* Style the dropdown container */
-.scroll-container {
-    max-height: 400px;  /* Ensure the form does not overflow */
-    overflow-y: auto;
-}
-
-/* Optional: Style the labels for inputs */
-label {
-    font-weight: bold;
-    margin-top: 15px;
-    font-size: 16px;
-    display: block;
-}
-
