@@ -1,18 +1,19 @@
 import Contact from "../Models/contact.js";
 
 export const saveContactForm = async (req, res) => {
-  const { email, name, message } = req.body;
+  const { email, storeName, name, message } = req.body;
   console.log('Received data:', req.body);
 
-  if (!email || !name || !message) {
+  // Validate all required fields
+  if (!email || !storeName || !name || !message) {
     return res.status(400).json({ error: 'All fields are required' });
   }
 
   try {
-    let contact = await Contact.findOne({ email: email });
+    let contact = await Contact.findOne({ email });
 
     if (!contact) {
-      contact = new Contact({ email, name, messages: [] });
+      contact = new Contact({ email, storeName, name, messages: [] });
     }
 
     if (contact.messages.length >= 5) {
@@ -30,6 +31,7 @@ export const saveContactForm = async (req, res) => {
     res.status(500).json({ error: 'Failed to save contact form data', details: error.message });
   }
 };
+
 
 export const getContactMessages = async (req, res) => {
   try {

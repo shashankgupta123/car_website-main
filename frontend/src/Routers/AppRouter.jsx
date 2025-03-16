@@ -24,6 +24,7 @@ import FavoriteCars from '../component/Recommendation/Favoutite';
 import Map from '../Pages/Map';
 import Contact_Us from '../Admin/Contact/Contact_Us';
 import Success from '../Pages/Success';
+import Success1 from '../Pages/Success1';
 import Cancel from '../Pages/Cancel';
 import About from '../Pages/About';
 import Contact from '../Pages/Contact';
@@ -33,6 +34,7 @@ import UserPurchase from '../Pages/UserPurchase';
 import ForgotPassword from '../component/ForgotPassword/ForgotPassword';
 import ResetPassword from '../component/ForgotPassword/ResetPassword';
 import ReviewsPage from '../Admin/Reviews/ReviewPage';
+
 
 function AppRouter() {
     const token = localStorage.getItem("token");
@@ -63,6 +65,7 @@ function AppRouter() {
                     <Route path="/favourites" element={<UserLayout><FavoriteCars/> </UserLayout>}/>
                     <Route path="/maps" element={<UserLayout><Map/></UserLayout>} />
                     <Route path="/success" element={<UserLayout><Success/></UserLayout>}/>
+                    <Route path="/success1" element={<UserLayout><Success1/></UserLayout>}/>
                     <Route path="/cancel" element={<UserLayout><Cancel/></UserLayout>}/>
                     <Route path="/about" element={<UserLayout><About/></UserLayout>}/>
                     <Route path="/contact" element={<UserLayout><Contact/></UserLayout>}/>

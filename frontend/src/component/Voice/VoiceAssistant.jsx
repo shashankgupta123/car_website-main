@@ -117,7 +117,7 @@ const VoiceAssistant = () => {
           style={styles.imageButton}
         />
       </div>
-      <button onClick={() => speak("Testing speech synthesis!")}>Test Speech</button>
+      {/* <button onClick={() => speak("Testing speech synthesis!")}>Test Speech</button> */}
     </div>
   );
 };
